@@ -15,25 +15,28 @@ function quick_sort(arr, start, end) {
   if (start >= end) {
     return
   }
+
   let mid = arr[start]
   let low = start
   let high = end
-  while (low < high) { 
-    while (low < high && arr[high] >= mid) {
-      high--
-    }
-    arr[low] = arr[high]
-    while (low < high && arr[low] < mid) {
-      low++
-    }
-    arr[high] = arr[low]
+
+  while (low < high && arr[high] >= mid) {
+    high--
   }
-  arr[low] = mid 
-  quick_sort(arr, start, low - 1) 
+  arr[low] = arr[high]
+
+  while (low < high && arr[low] < mid) {
+    low++
+  }
+  arr[high] = arr[low]
+
+  arr[low] = mid
+  quick_sort(arr, start, low - 1)
   quick_sort(arr, low + 1, end)
 }
 
 let arr = [7, 4, 3, 67, 34, 1, 8]
-quick_sort(arr, 0, arr.length - 1) // [ 1, 3, 4, 7, 8, 34, 67 ]
+quick_sort(arr, 0, arr.length - 1)
+console.log(arr) // [ 1, 3, 4, 7, 8, 34, 67 ]
 ```
 分析： 第一次外层while循环跳出，将数组分成左边两部分，中间为7， 左边都比7小，右边都比7大，之后将左边数组传入递归，当左边全部排好后，才会将右边数组传入进行递归，循环结束后，如果我们以7为根节点，可以转化一个典型的二叉树，而我们上面的操作像不像深度优先遍历的递归算法。
